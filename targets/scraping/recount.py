@@ -5,6 +5,7 @@ from db_connector import Database
 from requests.packages import urllib3
 from datetime import datetime
 import time
+import logging
 
 class Counter:
     executor = ThreadPoolExecutor(max_workers=1)
@@ -34,24 +35,24 @@ class Counter:
     def __run_worker():
         start_time = time.time()
         result = {}
-        print("Starting elastic count..")
+        logging.info("Starting elastic count..")
         result["elastic"] = Counter.__count_elastic()
-        print("Elastic done.")
-        print("Starting mongo count..")
+        logging.info("Elastic done.")
+        logging.info("Starting mongo count..")
         result["mongo"] = Counter.__count_mongo()
-        print("Mongo done.")
+        logging.info("Mongo done.")
         end_time = time.time()
         result["duration_seconds"] = int(end_time - start_time)
         result["timestamp"] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         db_metrics = Database.get_database_metrics()
         db_metrics["articles_summary"].drop()
-        print("Writing info to db")
+        logging.info("Writing info to db")
         db_metrics["articles_summary"].insert_one(result)
         # set this to none so another recount can be launched
-        print("Reseting flags")
+        logging.info("Reseting flags")
         Counter.WORKER = None
         Counter.JUST_FINISHED_FLAG = True
-        print("Recount done.")
+        logging.info("Recount done.")
 
     def __count_mongo():
         result = {"regions": {}, "languages": {}, "db_size_bytes": 0, "total_count": 0}
