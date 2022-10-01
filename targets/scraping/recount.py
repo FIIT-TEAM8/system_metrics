@@ -45,7 +45,7 @@ class Counter:
         result["duration_seconds"] = int(end_time - start_time)
         result["timestamp"] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         db_metrics = Database.get_database_metrics()
-        db_metrics["articles_summary"].drop()
+        # db_metrics["articles_summary"].drop()
         logging.info("Writing info to db")
         db_metrics["articles_summary"].insert_one(result)
         # set this to none so another recount can be launched
