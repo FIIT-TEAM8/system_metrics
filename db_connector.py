@@ -16,7 +16,7 @@ class Database(object):
             username=settings.MONGO_USER,
             password=settings.MONGO_PASSWORD
         )
-        Database.ADVERSEA_DATABASE = connection[settings.MONGO_DB_NAME]
+        Database.ADVERSEA_DATABASE = connection[settings.MONGO_DB_NAME_ARTICLES]
 
         return Database.ADVERSEA_DATABASE
 

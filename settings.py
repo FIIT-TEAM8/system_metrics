@@ -6,7 +6,7 @@ MONGO_SERVER_PORT = str(os.environ['MONGO_SERVER_PORT'] or 27017)
 MONGO_USER = str(os.environ['MONGO_USER'] or 'root')
 MONGO_PASSWORD = str(os.environ['MONGO_PASSWORD'] or 'password')
 # articles db
-MONGO_DB_NAME = str(os.environ['MONGO_DB_NAME'] or 'system_metrics')
+MONGO_DB_NAME_ARTICLES = str(os.environ['MONGO_DB_NAME_ARTICLES'] or 'system_metrics')
 # metrics db
 MONGO_DB_NAME_METRICS = str(os.environ['MONGO_DB_NAME_METRICS'] or 'system_metrics')
 
