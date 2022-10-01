@@ -35,24 +35,24 @@ class Counter:
     def __run_worker():
         start_time = time.time()
         result = {}
-        logging.info("Starting elastic count..")
+        logging.warning("Starting elastic count..")
         result["elastic"] = Counter.__count_elastic()
-        logging.info("Elastic done.")
-        logging.info("Starting mongo count..")
+        logging.warning("Elastic done.")
+        logging.warning("Starting mongo count..")
         result["mongo"] = Counter.__count_mongo()
-        logging.info("Mongo done.")
+        logging.warning("Mongo done.")
         end_time = time.time()
         result["duration_seconds"] = int(end_time - start_time)
         result["timestamp"] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         db_metrics = Database.get_database_metrics()
         # db_metrics["articles_summary"].drop()
-        logging.info("Writing info to db")
+        logging.warning("Writing warning to db")
         db_metrics["articles_summary"].insert_one(result)
         # set this to none so another recount can be launched
-        logging.info("Reseting flags")
+        logging.warning("Reseting flags")
         Counter.WORKER = None
         Counter.JUST_FINISHED_FLAG = True
-        logging.info("Recount done.")
+        logging.warning("Recount done.")
 
     def __count_mongo():
         result = {"regions": {}, "languages": {}, "db_size_bytes": 0, "total_count": 0}
